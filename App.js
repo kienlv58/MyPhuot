@@ -19,19 +19,21 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+import {TestFirebase} from './component/testfirebase'
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <TestFirebase/>
+        {/*<Text style={styles.welcome}>*/}
+          {/*Welcome to React Native!*/}
+        {/*</Text>*/}
+        {/*<Text style={styles.instructions}>*/}
+          {/*To get started, edit App.js*/}
+        {/*</Text>*/}
+        {/*<Text style={styles.instructions}>*/}
+          {/*{instructions}*/}
+        {/*</Text>*/}
       </View>
     );
   }
