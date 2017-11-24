@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Alert, FlatList} from 'react-native';
 import {firebaseApp} from "./FirebaseConfig";
-
 export default class MyTeam extends Component {
     constructor(props) {
         super(props);
@@ -10,8 +9,10 @@ export default class MyTeam extends Component {
             arrGroup: [],
             searchText: "",
         }
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
     }
-
     searchGroup() {
         if (this.state.searchText.length < 1) {
             this.getData()
@@ -43,6 +44,7 @@ export default class MyTeam extends Component {
     }
 
     getData = async () => {
+
         let a = await this.itemRef;
         a.on('value', (dataSnapshot) => {
             var arrGroup = [];
@@ -68,6 +70,7 @@ export default class MyTeam extends Component {
                 <View style={styles.childContainer}>
                     <View style={{flex: 3}}/>
 
+
                     <View style={styles.header}>
                         <TextInput
                             style={styles.searchInput}
@@ -82,16 +85,13 @@ export default class MyTeam extends Component {
                         <TouchableOpacity style={styles.searchButton} onPress={() => {
                             this.searchGroup()
                         }}>
-
                             <Image
                                 style={{width: 25, height: 25}}
                                 source={require('./image/icon_search.png')}
                             />
                         </TouchableOpacity>
                     </View>
-
                 </View>
-
                 <View style={styles.banner}>
                     <Text style={{
                         flex: 1.5,

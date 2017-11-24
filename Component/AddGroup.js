@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image} from 'react-native';
 import {firebaseApp} from "./FirebaseConfig";
-import {getData} from './MyTeam';
+
 
 export default class AddGroup extends Component {
     constructor(props) {
@@ -9,7 +9,7 @@ export default class AddGroup extends Component {
         this.itemRef = firebaseApp.database().ref('team management');
         this.state = {
             isDateTimePickerVisible: false,
-
+            avatarSource: '',
             groupName: "",
             description: '',
             leader: '',
@@ -17,6 +17,9 @@ export default class AddGroup extends Component {
             member: 0,
             startTime: "",
         }
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
     }
 
     pushGroup() {
@@ -117,9 +120,14 @@ export default class AddGroup extends Component {
                     />
                 </View>
                 <View style={{flex: 1.1, flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{paddingLeft:7,flex:2}}><Text style={{fontWeight:'bold'}}>Ảnh đại diện nhóm </Text></View>
-                    <Image style={{flex:0.75}}source={require('./image/icon_none_image_color.png')}/>
-                    <View style={{flex:1}}></View>
+                    <View style={{paddingLeft: 7, flex: 2}}><Text style={{fontWeight: 'bold'}}>Ảnh đại diện nhóm </Text></View>
+                    <TouchableOpacity style={{flex: 0.75}} onPress={()=>{this.showImagePicker()}}>
+                        <Image source={require('./image/icon_none_image_color.png')}/>
+
+                    </TouchableOpacity>
+
+
+                    <View style={{flex: 1}}></View>
 
                 </View>
 
@@ -179,7 +187,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     thumbnailGroup: {},
     childContainer: {
         flex: 0.7, flexDirection: 'row', alignItems: 'center',
