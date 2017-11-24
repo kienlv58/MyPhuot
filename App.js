@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import {TabBarGroupManager} from "./Component/Router";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,21 +23,10 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+        <TabBarGroupManager/>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
