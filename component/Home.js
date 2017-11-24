@@ -37,6 +37,10 @@ export default class Home extends Component {
             position: 0,
             interval: null
         }
+
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
     }
 
     componentWillMount() {
@@ -89,14 +93,11 @@ export default class Home extends Component {
                         />
                     </View>
 
-                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{flex: 1}}/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.stext}>
-                                Xem thêm
-                            </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                        <TouchableOpacity onPress={() => {this.props.navigation.navigate('TouristAttraction')}} style={{flexDirection:'row'}}>
+                            <Text style={styles.stext}>Xem thêm</Text>
                             <Image source={require('../image/ic_right.png')}/>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

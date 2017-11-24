@@ -3,50 +3,36 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
-    ToolbarAndroid,
-    FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    ScrollView,
 } from 'react-native';
-import ImageSlider from 'react-native-image-slider';
+import Slide from './Slide'
+import firebase from '../config/firebaseconfig'
 
 export default class Details extends Component<{}>{
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            position: 1,
-            interval: null
-        };
-    }
-
-    componentWillMount() {
-        this.setState({interval: setInterval(() => {
-            this.setState({position: this.state.position === 2 ? 0 : this.state.position + 1});
-        }, 2000)});
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.interval);
+        this.db = firebase.database();
     }
 
     render(){
+        let star = {
+            uri: 'http://www.potters.com.au/wp-content/uploads/2017/09/five-stars.png'
+        }
         return(
             <View style={details.container}>
-                <ImageSlider
-                    images={[
-                        'https://cdn3.ivivu.com/2014/10/du-lich-sa-pa-cam-nang-tu-a-den-z-iVIVU.com-1-1024x681.jpg',
-                        'https://upload.wikimedia.org/wikipedia/vi/6/62/Sa_Pa_ng%C3%A0y_tuy%E1%BA%BFt_2.jpg',
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFChG1MxjTwC9dP5qJ6UiNJppm2vixP0Pkh3Idot5ZRnOAPJc_',
-                    ]}
-                    position={this.state.position}
-                    onPositionChanged={position => this.setState({position})}/>
-                <View style={details.title}>
-                    <Text style={details.text}>Sapa - Lào Cai</Text>
-                    <Text style={details.text}>Sapa nằm ở địa phận Lào Cai, cách thủ đo Hà Nội khoảng 300 km</Text>
-                </View>
+                <ScrollView>
+                    <Slide array={this.props.navigation.state.params.images_slide}/>
+                    <View style={details.title}>
+                        <Text style={{fontSize:18, color:'white', fontWeight:'bold'}}>{this.props.navigation.state.params.name}</Text>
+                        <Text style={details.text}>{this.props.navigation.state.params.short_desc}</Text>
+                    </View>
+                    <View style={{justifyContent:'center', alignItems:'center'}}>
+                        <Image source={star} style={{height:50, width:200}}></Image>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -58,6 +44,12 @@ const details = StyleSheet.create({
         flex: 1,
     },
     title:{
-
+        backgroundColor:'deepskyblue',
+        padding:5,
+        height: 70
     },
+    text:{
+        color:'white',
+        fontSize: 16,
+    }
 });
