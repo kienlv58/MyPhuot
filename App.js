@@ -11,20 +11,12 @@ import {
   Text,
   View
 } from 'react-native';
-import {TabBarGroupManager} from "./Component/Router";
+import {RouteStack} from "./Routes";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-import {TestFirebase} from './component/testfirebase'
-import SideMenu from './component/routers';
 export default class App extends Component<{}> {
   render() {
     return (
+
 
       <View>
         <SideMenu/>
@@ -33,3 +25,8 @@ export default class App extends Component<{}> {
     );
   }
 }
+
+      <RouteStack/>
+}
+
+

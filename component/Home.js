@@ -42,6 +42,10 @@ export default class Home extends Component {
             position: 0,
             interval: null
         }
+
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
     }
 
     loadList(db) {
@@ -107,14 +111,20 @@ export default class Home extends Component {
                         />
                     </View>
 
+<<<<<<< HEAD
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{flex: 1}}/>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={[styles.stext]}>
                                 Xem thêm
                             </Text>
+=======
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                        <TouchableOpacity onPress={() => {this.props.navigation.navigate('TouristAttraction')}} style={{flexDirection:'row'}}>
+                            <Text style={styles.stext}>Xem thêm</Text>
+>>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
                             <Image source={require('../image/ic_right.png')}/>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

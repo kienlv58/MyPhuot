@@ -1,11 +1,22 @@
 rootProject.name = 'MyPhuot'
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
 include ':react-native-vector-icons'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 include ':react-native-fast-image'
 project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
+<<<<<<< HEAD
 
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+=======
+=======
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+>>>>>>> a0000a605fd045f2cb312b2adf0574a5196eb353
+>>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
 
 include ':app'

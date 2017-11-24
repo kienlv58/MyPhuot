@@ -4,71 +4,131 @@ import {
     Text,
     View,
     TextInput,
-    ToolbarAndroid,
     FlatList,
     TouchableOpacity,
     Image
 } from 'react-native';
+import firebase from '../config/firebaseconfig'
 
 export default class TouristAttraction extends Component<{}>{
 
     constructor(props){
         super (props);
-        this.state = {text: ''}
+        this.db = firebase.database();
         this.state = {
-            array:[
-                {key:'1', destination: 'Sapa', place:'Lào Cai'},
-                {key:'2', destination: 'Đà Nẵng', place:'Đà Lạt'},
-                {key:'3', destination: 'Đỉnh Hàm Lợn', place:'Đà Lạt'},
-                {key:'4', destination: 'Núi Trầm', place:'Đà Lạt'},
-                {key:'5', destination: 'Tam Đảo', place:'Đà Lạt'},
-            ]
+            array:[],
+            searchText: ''
+        }
+
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
+    }
+
+    searchTourist() {
+        if (this.state.searchText.length < 1) {
+            this.loadList(db)
+        }
+        else {
+            let a = this.db;
+            a.on('value', (dataSnapshot) => {
+                var array = [];
+                dataSnapshot.forEach((itemChild) => {
+                    if (itemChild.val().name == this.state.searchText) {
+                        array.push({
+                            key: itemChild.key,
+                            adress: itemChild.adress,
+                            name: itemChild.val().name,
+                        })
+                    }
+                })
+                this.setState({
+                    array: array
+                });
+            })
         }
     }
 
+    loadList(db) {
+        db.ref('trips').child('places').on('value', (snapshot) => {
+            var data = [];
+            snapshot.forEach((itemChild) => {
+                data.push({
+                    thumnail: itemChild.val().thumnail,
+                    name: itemChild.val().name,
+                    adress: itemChild.val().adress,
+                    short_desc: itemChild.val().short_desc,
+                    acticle: itemChild.val().acticle,
+                });
+
+            })
+            this.setState({
+                array: data
+            });
+        })
+    }
+
+    getData = async () => {
+
+        let a = await this.db.ref("trips").child('places');
+        a.on('value', (snapshot) => {
+            var data = [];
+            snapshot.forEach((itemChild) => {
+                let tempObj = itemChild.val();
+                tempObj.images_slide = [];
+                itemChild.child('images_slide').forEach((img) => {
+                    tempObj.images_slide.push(img.val());
+                });
+                data.push(tempObj);
+            })
+            this.setState({array: data});
+        })
+    };
+
+    componentWillMount() {
+        this.getData()
+    }
+
+    onRenderItem = ({item}) => (
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Details', {name: item.name,
+            short_desc: item.short_desc, images_slide: item.images_slide, acticle: item.acticle})}}>
+            <View style={css.flatlist}>
+                <Image source={{uri: item.thumnail}} style={css.image}/>
+                <View style={css.textflat}>
+                    <Text style={css.text}>{item.name}</Text>
+                    <Text style={css.text}>{item.adress}</Text>
+                    <Image source={{uri: 'http://www.potters.com.au/wp-content/uploads/2017/09/five-stars.png'}} style={css.evalua}/>
+                </View>
+            </View>
+        </TouchableOpacity>
+    )
+
     render() {
-        let pic = {
-            uri: 'https://cdn3.ivivu.com/2014/10/du-lich-sa-pa-cam-nang-tu-a-den-z-iVIVU.com-1-1024x681.jpg'
-        }
-        let evalua = {
-            uri: 'http://www.potters.com.au/wp-content/uploads/2017/09/five-stars.png'
-        }
         return (
             <View style={css.container}>
-                {/*<ToolbarAndroid logo={require('../image/back.png')}*/}
-                                {/*style={css.toolbar}*/}
-                                {/*title='back'*/}
-                                {/*titleColor='white'*/}
-                                {/*onActionSelected={this.onActionSelected}/>*/}
                 <View style={css.search}>
                     <TextInput style={css.textput}
                                placeholder='Search'
                                underlineColorAndroid={'transparent'}
-                               onChangeText={(text) => this.setState({text})}
+                               onChangeText={(searchText) => this.setState({searchText})}
                                value={this.state.text}/>
-                    <TouchableOpacity onPress={() => {}}>
+                    <TouchableOpacity onPress={() => {this.searchTourist()}}>
                         <Text style={css.textSearch}>Search</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={css.list}>
                     <FlatList
                         data={this.state.array}
-                        renderItem={({item}) =>
-                            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Details')}}>
-                                <View style={css.flatlist}>
-                                    <Image source={pic} style={css.image}/>
-                                    <View style={css.textflat}>
-                                        <Text style={css.text}>{item.destination}</Text>
-                                        <Text style={css.text}>{item.place}</Text>
-                                        <Image source={evalua} style={css.evalua}/>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        }
+                        renderItem={this.onRenderItem}
+                        keyExtractor={(item, index) => index}
                     />
                 </View>
             </View>
         );
+    }
+
+    componentDidMount() {
+        this.loadList(this.db);
     }
 }
 
@@ -83,21 +143,29 @@ const css = StyleSheet.create({
     },
     search:{
         height:50,
-        marginTop:10,
-        marginLeft:5,
-        flexDirection:'row',
+        marginTop:5,
+        marginBottom:5,
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems: 'center',
     },
     textSearch:{
         padding:8,
-        fontSize:16,
-        color:'blue'
+        fontSize:18,
+        marginRight: 5,
+        color:'white',
+        borderBottomRightRadius: 7,
+        borderTopRightRadius: 7,
+        backgroundColor:'mediumturquoise'
     },
     textput:{
         height:40,
         flex:1,
+        marginLeft:5,
         borderColor:'gray',
         borderWidth:1,
-        borderRadius:9
+        borderBottomLeftRadius: 7,
+        borderTopLeftRadius:7
     },
     list:{
         flex:1,
@@ -109,15 +177,15 @@ const css = StyleSheet.create({
     },
     flatlist:{
         borderBottomWidth:1,
-        padding:10,
+        padding:15,
         flexDirection:'row'
     },
     textflat:{
         marginLeft:10,
     },
     image:{
-        width:150,
-        height:90
+        width:'45%',
+        height:'100%'
     },
     evalua:{
         marginTop:5,
