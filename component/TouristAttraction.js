@@ -35,11 +35,11 @@ export default class TouristAttraction extends Component<{}>{
         }
         return (
             <View style={css.container}>
-                <ToolbarAndroid logo={require('../image/back.png')}
-                                style={css.toolbar}
-                                title='back'
-                                titleColor='white'
-                                onActionSelected={this.onActionSelected}/>
+                {/*<ToolbarAndroid logo={require('../image/back.png')}*/}
+                                {/*style={css.toolbar}*/}
+                                {/*title='back'*/}
+                                {/*titleColor='white'*/}
+                                {/*onActionSelected={this.onActionSelected}/>*/}
                 <View style={css.search}>
                     <TextInput style={css.textput}
                                placeholder='Search'
@@ -54,14 +54,16 @@ export default class TouristAttraction extends Component<{}>{
                     <FlatList
                         data={this.state.array}
                         renderItem={({item}) =>
-                            <View style={css.flatlist}>
-                                <Image source={pic} style={css.image}/>
-                                <View style={css.textflat}>
-                                    <Text style={css.text}>{item.destination}</Text>
-                                    <Text style={css.text}>{item.place}</Text>
-                                    <Image source={evalua} style={css.evalua}/>
+                            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Details')}}>
+                                <View style={css.flatlist}>
+                                    <Image source={pic} style={css.image}/>
+                                    <View style={css.textflat}>
+                                        <Text style={css.text}>{item.destination}</Text>
+                                        <Text style={css.text}>{item.place}</Text>
+                                        <Image source={evalua} style={css.evalua}/>
+                                    </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         }
                     />
                 </View>
@@ -73,6 +75,7 @@ export default class TouristAttraction extends Component<{}>{
 const css = StyleSheet.create({
     container:{
         flex: 1,
+        backgroundColor:'ghostwhite'
     },
     toolbar:{
         backgroundColor:'#00c853',
