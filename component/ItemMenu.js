@@ -23,7 +23,7 @@ export default class ItemMenu extends Component {
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <IconMat name={this.props.nameIcon} size={30} color="#009688"
+                    <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>
                     <Text style={{flex: 1, fontSize: 20, fontWeight: 'bold',color:'white'}}>{this.props.title}</Text>
                 </TouchableOpacity>

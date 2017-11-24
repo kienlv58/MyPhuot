@@ -3,14 +3,14 @@ import App from './App';
 import React,{Component} from 'react';
 import TouristAttraction from './component/TouristAttraction';
 import {RouteStack} from './Routes';
-import Home from './component/Home'
+import {SlideMenu} from './Routes'
 
 export class MyPhuot extends Component{
     render(){
         return(
-            <RouteStack/>
+            <SlideMenu/>
         );
     }
 }
 
-AppRegistry.registerComponent('MyPhuot', () => Home);
+AppRegistry.registerComponent('MyPhuot', () => MyPhuot);
