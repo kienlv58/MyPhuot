@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {
     FlatList,
-    View, StyleSheet, Text
+    View, StyleSheet, Text,
 } from 'react-native';
 
 import firebase from '../config/firebaseconfig'
 
-export class TestFirebase extends Component {
+export default class TestFirebase extends Component {
     constructor(props) {
         super(props)
         this.db = firebase.database();
@@ -36,6 +36,7 @@ export class TestFirebase extends Component {
                 data.push(tempObj);
             })
             this.setState({places: data});
+            console.log("state",this.state);
 
         })
     };
@@ -47,23 +48,26 @@ export class TestFirebase extends Component {
 
     eachItem = (data) => {
         return (
+
             <View key={data.index} style={{flex: 1}}>
                 <Text>
                     {data.item.name}
                 </Text>
             </View>
+
         )
     };
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <FlatList
-                    data={this.state.places}
-                    renderItem={this.eachItem}
-                    keyExtractor={(item, index) => index}
-                />
-            </View>
+
+                <View style={{flex: 1}}>
+                    <FlatList
+                        data={this.state.places}
+                        renderItem={this.eachItem}
+                        keyExtractor={(item, index) => index}
+                    />
+                </View>
         );
     }
 
