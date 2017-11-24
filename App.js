@@ -11,9 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import {TestFirebase} from './component/testfirebase'
 import {RouteStack} from "./Routes";
-import SideMenu from './component/routers';
 
 export default class App extends Component<{}> {
   render() {
@@ -22,3 +20,4 @@ export default class App extends Component<{}> {
     );
   }
 }
+
