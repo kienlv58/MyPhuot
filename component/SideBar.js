@@ -11,7 +11,7 @@ import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
 import FastImage from 'react-native-fast-image'
 import * as Colors from './Colors';
-import ItemMenu from '../component/ItemMenu'
+import ItemMenu from '../Component/ItemMenu'
 import {sizeAvatar} from "./Dimen";
 
 export default class SideBar extends Component {
