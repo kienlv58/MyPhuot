@@ -8,7 +8,7 @@ export default class Slide extends Component<{}>{
         super(props);
         this.db = firebase.database();
         this.state = {
-            position: 1,
+            position: 0,
             interval: null
         };
     }
@@ -16,7 +16,7 @@ export default class Slide extends Component<{}>{
     componentWillMount() {
         this.setState({interval: setInterval(() => {
             this.setState({position: this.state.position === 2 ? 0 : this.state.position + 1});
-        }, 2000)});
+        }, 4000)});
     }
 
     componentWillUnmount() {
