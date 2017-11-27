@@ -17,11 +17,21 @@ export default class ItemMenu extends Component {
         super(props)
     }
 
+    onPress = ()=>{
+        switch (this.props.title){
+            case 'Đăng xuất':
+
+                break;
+        }
+    }
+
     render() {
         return (
             <View
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
+                    onPress={this
+                        .onPress()}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>

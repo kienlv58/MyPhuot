@@ -7,12 +7,38 @@ import {
     View, Text, StyleSheet, Image, ScrollView
 } from 'react-native';
 
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+
 import FastImage from 'react-native-fast-image'
 import * as Colors from './Colors';
 import ItemMenu from '../component/ItemMenu'
 export default class SideBar extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLogin: false,
+
+        }
+    }
+
+    getUserInfo = ()=>{
+        console.log("state",this.state);
+        var api = 'https://graph.facebook.com/v2.8/' + this.state.user.userId +
+            '?fields=name,email&access_token=' + this.state.user.token;
+        fetch(api)
+            .then((response) => response.json())
+            .then( (responseData) => {
+                console.log('responseData',responseData)
+                this.setState({profile:responseData});
+            })
+            .done();
+    }
+
     render() {
+        var _this = this;
+      //  console.log("state",this.state);
         return (
             <ScrollView contentContainerStyle={{borderWidth: 0, flex: 1}}>
                 <View style={styleHeader.header}>
@@ -27,6 +53,7 @@ export default class SideBar extends Component {
                            resizeMode="cover"
                     >
                     </Image>
+
                     <View style={{
                         width: '100%',
                         height: '20%',
@@ -43,11 +70,49 @@ export default class SideBar extends Component {
                                resizeMode="cover"
                         >
                         </Image>
-                        <Text
-                            style={{fontSize: 20, fontWeight: 'bold', marginTop: 5, color: 'white'}}>
-                            Lo Van Kien
-                        </Text>
+                        {this.state.isLogin ?
+                            <Text
+                                style={{fontSize: 20, fontWeight: 'bold', marginTop: 5, color: 'white'}}>
+                                {this.state.profile?this.state.profile.name:null}
+                            </Text> : <FBLogin
+                                style={{maxHeight: 40, borderRadius: 2}}
+                                ref={(fbLogin) => { this.fbLogin = fbLogin }}
+                                permissions={["email","user_friends"]}
+                                loginBehavior={FBLoginManager.LoginBehaviors.Native}
+                                onLogin={function(data){
+                                    console.log("Logged in!");
+                                    console.log(data);
+                                    _this.setState({ user : data.credentials,profile:data.profile,isLogin:true});
+                                }}
+                                onLogout={function(){
+                                    console.log("Logged out.");
+                                    _this.setState({ user : null });
+                                }}
+                                onLoginFound={function(data){
+                                    console.log("Existing login found.");
+                                    console.log(data);
+                                    _this.setState({ user : data.credentials,isLogin:true});
+                                    _this.getUserInfo();
+                                }}
+                                onLoginNotFound={function(){
+                                    console.log("No user logged in.");
+                                    _this.setState({ user : null });
+                                }}
+                                onError={function(data){
+                                    console.log("ERROR");
+                                    console.log(data);
+                                }}
+                                onCancel={function(){
+                                    console.log("User cancelled.");
+                                }}
+                                onPermissionsMissing={function(data){
+                                    console.log("Check permissions!");
+                                    console.log(data);
+                                }}
+                            />
+                        }
                     </View>
+
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
                         <ItemMenu title="Đội của tôi" nameIcon="ios-contacts"/>
@@ -56,7 +121,7 @@ export default class SideBar extends Component {
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
                         <ItemMenu title="Tin tức phượt" nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
-                        <ItemMenu title="Đăng xuất" nameIcon="md-log-out"/>
+                        <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>
 
 
                     </View>
@@ -84,6 +149,7 @@ const styleHeader = StyleSheet.create({
     , image_circle: {
         height: 56,
         width: 56,
-        borderRadius: 64
+        borderRadius: 64,
+        marginBottom: 5
     },
 });
