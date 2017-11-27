@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Alert, FlatList} from 'react-native';
-import {firebaseApp} from "./FirebaseConfig";
+import firebase from '../configs/firebaseconfig';
 
 export default class MyTeam extends Component {
     constructor(props) {
         super(props);
-        this.itemRef = firebaseApp.database().ref('team management')
+        this.itemRef = firebase.database().ref('team management')
         this.state = {
             arrGroup: [],
             searchText: "",
@@ -88,7 +88,7 @@ export default class MyTeam extends Component {
                         }}>
                             <Image
                                 style={{width: 25, height: 25}}
-                                source={require('./image/icon_search.png')}
+                                source={require('../images/icon_search.png')}
                             />
                         </TouchableOpacity>
                     </View>
@@ -111,7 +111,7 @@ export default class MyTeam extends Component {
                         <Text style={{color: '#ff9749'}}>Tạo mới</Text>
                         <Image
                             style={{width: 16, height: 16}}
-                            source={require('./image/icon_add_orange.png')}
+                            source={require('../images/icon_add_orange.png')}
                         />
                     </TouchableOpacity>
                     <View style={{flex: 0.3}}/>
@@ -129,7 +129,7 @@ export default class MyTeam extends Component {
                             }}>
                                 <View style={{flexDirection: 'row', padding: 10}}>
                                     <View style={{flex: 1}}>
-                                        <Image source={require('./image/icon_none_image_color.png')}/>
+                                        <Image source={require('../images/icon_none_image_color.png')}/>
                                     </View>
                                     <View style={{flex: 3, flexDirection: 'column'}}>
                                         <Text style={{fontWeight: 'bold'}}>{item.groupName}</Text>
@@ -142,7 +142,7 @@ export default class MyTeam extends Component {
                                         justifyContent: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <Image source={require('./image/icon_next.png')}/>
+                                        <Image source={require('../images/icon_next.png')}/>
                                     </View>
                                 </View>
                             </TouchableOpacity>

@@ -10,9 +10,9 @@ import {
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
 import FastImage from 'react-native-fast-image'
-import * as Colors from './Colors';
-import ItemMenu from '../Component/ItemMenu'
-import {sizeAvatar} from "./Dimen";
+import * as Colors from '../utils/Colors';
+import ItemMenu from './ItemMenu'
+import {sizeAvatar} from "../utils/Dimen";
 
 export default class SideBar extends Component {
 
@@ -125,7 +125,8 @@ export default class SideBar extends Component {
                                   nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
-                        <ItemMenu title="Tin tức phượt"
+                        <ItemMenu action={()=>{this.props.navigation.navigate('PhuotNews')}}
+                            title="Tin tức phượt"
                                   nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>

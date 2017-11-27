@@ -4,8 +4,8 @@
 import React, {Component} from 'react'
 import {StackNavigator, TabNavigator, DrawerNavigator} from 'react-navigation';
 
-import SideBar from "../component/SideBar";
-import TestFirebase from "../component/testfirebase";
+import SideBar from "./SideBar";
+import TestFirebase from "./testfirebase";
 import Home from './Home'
 
 export const RouteStack = StackNavigator({

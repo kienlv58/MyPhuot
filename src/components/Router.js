@@ -12,7 +12,7 @@ export const TabBarGroupManager = TabNavigator({
             tabBarLabel: 'Thành Viên',
             tabBarIcon: () => (
                 <Image
-                    source={require('./image/icon_member.png')}
+                    source={require('../images/icon_member.png')}
                     style={{width: 27, height: 27}}
                 />
             ),
@@ -24,7 +24,7 @@ export const TabBarGroupManager = TabNavigator({
             tabBarLabel: 'Lịch Trình',
             tabBarIcon: () => (
                 <Image
-                    source={require('./image/icon_schedule.png')}
+                    source={require('../images/icon_schedule.png')}
                     style={{width: 27, height: 27}}
                 />
             ),
@@ -37,7 +37,7 @@ export const TabBarGroupManager = TabNavigator({
             tabBarLabel: 'Chi Phí',
             tabBarIcon: () => (
                 <Image
-                    source={require('./image/icon_cost.png')}
+                    source={require('../images/icon_cost.png')}
                     style={{width: 27, height: 27}}
                 />
             ),

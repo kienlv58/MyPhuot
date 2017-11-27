@@ -4,15 +4,15 @@ import {
     DrawerNavigator,
     TabNavigator
 } from 'react-navigation';
-import Home from './Component/Home'
-import TouristAttraction from './Component/TouristAttraction'
-import Details from './Component/Details'
-import SideBar from './Component/SideBar';
-import PostsDetails from './Component/ScreenTabDetails/PostsDetails'
-import ScheduleDetails from './Component/ScreenTabDetails/ScheduleDetails'
-import ServiceDetails from './Component/ScreenTabDetails/ServiceDetails'
-import {widthMenu} from "./Component/Dimen";
-import PhuotNews from "./Component/PhuotNews";
+import Home from './src/components/Home'
+import TouristAttraction from './src/components/TouristAttraction'
+import Details from './src/components/Details'
+import SideBar from './src/components/SideBar';
+import PostsDetails from './src/components/ScreenTabDetails/PostsDetails'
+import ScheduleDetails from './src/components/ScreenTabDetails/ScheduleDetails'
+import ServiceDetails from './src/components/ScreenTabDetails/ServiceDetails'
+import {widthMenu} from "./src/utils/Dimen";
+import PhuotNews from "./src/components/PhuotNews";
 
 export const RouteStack = StackNavigator({
     Home: {

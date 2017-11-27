@@ -4,7 +4,7 @@ import {
     View, StyleSheet, Text,
 } from 'react-native';
 
-import firebase from '../config/firebaseconfig'
+import firebase from '../configs/firebaseconfig'
 
 export default class TestFirebase extends Component {
     constructor(props) {
