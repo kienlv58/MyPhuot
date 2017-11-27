@@ -152,10 +152,9 @@ export default class Home extends Component {
                     <TouchableOpacity onPress={() => {
                         this.props.navigation.navigate('TouristAttraction')
                     }} style={{flexDirection: 'row'}}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={styles.stext}>Xem thêm</Text>
-                            <Image source={require('../image/ic_right.png')}/>
-                        </View>
+
+                        <Text style={styles.stext}>Xem thêm</Text>
+                        <Image source={require('../image/ic_right.png')}/>
                     </TouchableOpacity>
                 </View>
             </View>

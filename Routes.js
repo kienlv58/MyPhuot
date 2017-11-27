@@ -12,7 +12,6 @@ import {widthMenu} from "./component/Dimen";
 import PhuotNews from "./component/PhuotNews";
 
 export const RouteStack = StackNavigator({
-
     Home: {
         screen: Home,
         header: navigation => ({
@@ -21,6 +20,7 @@ export const RouteStack = StackNavigator({
             }
         }),
     },
+
 
     TouristAttraction: {
         screen: TouristAttraction,
@@ -39,7 +39,7 @@ export const RouteStack = StackNavigator({
 
 })
 
-export const SlideMenu = DrawerNavigator(
+export default SlideMenu = DrawerNavigator(
     {
         menu: {
             screen: RouteStack
