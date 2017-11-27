@@ -7,14 +7,13 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    ToolbarAndroid
 } from 'react-native'
 
-import ImageSlider from 'react-native-image-slider';
 import firebase from '../config/firebaseconfig';
-import SliderImage from './SliderImage';
 import * as Colors from './Colors';
 import {default as IconMat} from 'react-native-vector-icons/Ionicons';
+import Slide from './Slide';
+import {heightImage, sizeTextFlatList, sizeTextHome, widthImage} from './Dimen';
 
 
 export default class Home extends Component {
@@ -34,11 +33,13 @@ export default class Home extends Component {
 
 
     }
+
     constructor(props) {
         super(props);
         this.db = firebase.database();
         this.state = {
             mang: [],
+            anh: [],
             position: 0,
             interval: null
         }
@@ -48,41 +49,75 @@ export default class Home extends Component {
         ];
     }
 
-    loadList(db) {
-        db.ref('trips').child('places').on('value', (snapshot) => {
-            var data = [];
-            snapshot.forEach((itemChild) => {
-                data.push({
-                    key: itemChild.key,
-                    thumnail: itemChild.val().thumnail,
-                    name: itemChild.val().name,
-                });
-
-            })
+    listenForItems(db) {
+        var items = [];
+        db.ref('hot trends').on('child_added', (dataSnapshot) => {
+            items.push(dataSnapshot.val());
             this.setState({
-                mang: data
+                anh: items
             });
         })
     }
 
+    getData = async () => {
+
+        let a = await this.db.ref("trips").child('places');
+        a.on('value', (snapshot) => {
+            var data = [];
+            snapshot.forEach((itemChild) => {
+                if (data.length < 6) {
+                    let tempObj = itemChild.val();
+                    tempObj.thumnail;
+                    tempObj.name;
+                    tempObj.adress;
+                    tempObj.short_desc;
+                    tempObj.acticle = [];
+                    tempObj.images_slide = [];
+                    itemChild.child('images_slide').forEach((img) => {
+                        tempObj.images_slide.push(img.val());
+                    });
+                    data.push(tempObj);
+                }
+            })
+            this.setState({
+                    mang: data
+                }
+            );
+        })
+    };
+
+    componentWillMount() {
+        this.getData()
+        this.listenForItems(this.db)
+    }
+
+
     //ITEM FLATLIST
     eachItem = ({item}) => (
-        <View key={item.index} style={styles.flat}>
-            <Image
-                source={{uri: item.thumnail}}
-                style={styles.styleimage}>
-            </Image>
+        <TouchableOpacity onPress={() => {
+            this.props.navigation.navigate('Details', {
+                name: item.name,
+                short_desc: item.short_desc, images_slide: item.images_slide, acticle: item.acticle
+            })
+        }}>
+            <View key={item.index} style={styles.flat}>
+                <Image
+                    source={{uri: item.thumnail}}
+                    style={styles.styleimage}>
+                </Image>
 
-            <View style={{
-                width: '90%',
-                position: 'absolute',
-                backgroundColor: 'rgba(52, 52, 52, 0.5)',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text style={{fontSize: 18, color: 'white'}}> {item.name}</Text>
+                <View style={{
+                    width: '90%',
+                    position: 'absolute',
+                    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text style={{fontSize: sizeTextFlatList, color: 'white'}}> {item.name}</Text>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
+
     );
 
     render() {
@@ -91,10 +126,12 @@ export default class Home extends Component {
                 <ScrollView>
 
                     <View style={styles.slider}>
-                        <Text style={styles.stext}>
-                            Hot Trend
-                        </Text>
-                        <SliderImage/>
+                        <View style={{justifyContent: 'center'}}>
+                            <Text style={styles.stext}>
+                                Hot Trend
+                            </Text>
+                        </View>
+                        <Slide array={this.state.anh}/>
                     </View>
 
                     <Text style={styles.stext}>
@@ -106,24 +143,23 @@ export default class Home extends Component {
                             data={this.state.mang}
                             renderItem={this.eachItem}
                             numColumns={2}
-                            numRow={2}
                             keyExtractor={(item, index) => index}
                         />
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                        <TouchableOpacity onPress={() => {this.props.navigation.navigate('TouristAttraction')}} style={{flexDirection:'row'}}>
-                            <Text style={styles.stext}>Xem thêm</Text>
-                            <Image source={require('../image/ic_right.png')}/>
-                        </TouchableOpacity>
-                    </View>
+
                 </ScrollView>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+                    <TouchableOpacity onPress={() => {
+                        this.props.navigation.navigate('TouristAttraction')
+                    }} style={{flexDirection: 'row'}}>
+
+                        <Text style={styles.stext}>Xem thêm</Text>
+                        <Image source={require('../image/ic_right.png')}/>
+                    </TouchableOpacity>
+                </View>
             </View>
 
         );
-    }
-
-    componentDidMount() {
-        this.loadList(this.db);
     }
 }
 
@@ -134,13 +170,12 @@ var styles = StyleSheet.create({
 
     slider: {
         flex: 2,
-        backgroundColor: '#00c853',
         justifyContent: 'center'
     },
 
     stext: {
         color: '#ffffff',
-        fontSize: 20,
+        fontSize: sizeTextHome,
         marginLeft: 16
     },
     styleview: {
@@ -154,18 +189,18 @@ var styles = StyleSheet.create({
     },
 
     styleimage: {
-        margin: 5,
-        height: 100,
+        height: heightImage,
         width: '90%',
-        resizeMode: 'cover'
     },
 
     flat: {
         flex: 1,
+        height: heightImage,
+        width: widthImage,
+        marginTop: 10,
+        marginBottom: 5,
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'ghostwhite'
     }
-
-
-});
+})

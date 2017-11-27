@@ -8,6 +8,8 @@ import TouristAttraction from './component/TouristAttraction'
 import Details from './component/Details'
 import Home from './component/Home'
 import SideBar from './component/SideBar';
+import {widthMenu} from "./component/Dimen";
+import PhuotNews from "./component/PhuotNews";
 
 export const RouteStack = StackNavigator({
     Home: {
@@ -17,9 +19,6 @@ export const RouteStack = StackNavigator({
                 backgroundColor: '#00fa9a'
             }
         }),
-        // navigationOptions: {
-        //
-        // }
     },
 
 
@@ -35,15 +34,26 @@ export const RouteStack = StackNavigator({
             title: 'Details'
         }
     },
+
+
+
 })
 
-export const SlideMenu = DrawerNavigator({
+export default SlideMenu = DrawerNavigator(
+    {
         menu: {
             screen: RouteStack
         },
+        TouristAttraction: {
+            screen: TouristAttraction,
+        },
+        PhuotNews:{
+            screen: PhuotNews,
+        }
     },
+
     {
-        drawerWidth: 300,
+        drawerWidth: widthMenu,
         drawerPosition: "left",
         contentComponent: props => <SideBar {...props}/>
 

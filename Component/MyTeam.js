@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity, Text, Image, Alert, FlatList} from 'react-native';
 import {firebaseApp} from "./FirebaseConfig";
+
 export default class MyTeam extends Component {
     constructor(props) {
         super(props);

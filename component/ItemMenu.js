@@ -30,12 +30,12 @@ export default class ItemMenu extends Component {
             <View
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
-                    onPress={this
-                        .onPress()}
+
+                    onPress={this.onPress()}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>
-                    <Text style={{flex: 1, fontSize: 20, fontWeight: 'bold',color:'white'}}>{this.props.title}</Text>
+                    <Text style={{flex: 1, fontSize: 20, fontWeight: 'bold', color: 'white'}}>{this.props.title}</Text>
                 </TouchableOpacity>
             </View>
         )
