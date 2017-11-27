@@ -1,24 +1,22 @@
 import React from 'react';
-<<<<<<< HEAD
 import {
     StackNavigator,
     DrawerNavigator,
+    TabNavigator
 } from 'react-navigation';
 import {
     Image,
     TouchableOpacity,
 } from 'react-native'
-=======
-import {StackNavigator} from 'react-navigation';
 import Home from './component/Home'
->>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
 import TouristAttraction from './component/TouristAttraction'
 import Details from './component/Details'
-import Home from './component/Home'
 import SideBar from './component/SideBar';
+import PostsDetails from './component/ScreenTabDetails/PostsDetails'
+import ScheduleDetails from './component/ScreenTabDetails/ScheduleDetails'
+import ServiceDetails from './component/ScreenTabDetails/ServiceDetails'
 
 export const RouteStack = StackNavigator({
-<<<<<<< HEAD
     Home: {
         screen: Home,
         header: navigation => ({
@@ -30,17 +28,7 @@ export const RouteStack = StackNavigator({
         //
         // }
     },
-
-    TouristAttraction: {
-=======
-    Home:{
-        screen: Home,
-        navigationOptions:{
-            title: 'Home'
-        }
-    },
     TouristAttraction:{
->>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
         screen: TouristAttraction,
         navigationOptions: {
             title: 'Tourist Attraction'
@@ -66,3 +54,41 @@ export const SlideMenu = DrawerNavigator({
 
     },
 );
+
+export const TabBar = TabNavigator({
+    PostsDetails:{
+        screen: PostsDetails,
+        navigationOptions: {
+            tabBarLabel: 'Bài viết',
+        }
+    },
+    ScheduleDetails:{
+        screen: ScheduleDetails,
+        navigationOptions: {
+            tabBarLabel: 'Lịch trình',
+        }
+    },
+    ServiceDetails:{
+        screen: ServiceDetails,
+        navigationOptions: {
+            tabBarLabel: 'Dịch vụ',
+        }
+    },
+},{
+    tabBarPosition: 'top',
+    animationEnabled: true,
+    tabBarOptions: {
+        upperCaseLabel: false,
+        activeTintColor: 'white',
+        inactiveTintColor: 'black',
+        indicatorStyle: {
+            backgroundColor: 'white'
+        },
+        labelStyle: {
+            fontSize: 14,
+        },
+        style: {
+            backgroundColor: 'deepskyblue',
+        },
+    }
+});

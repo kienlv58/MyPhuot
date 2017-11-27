@@ -9,8 +9,6 @@ import {
     TouchableOpacity,
     ToolbarAndroid
 } from 'react-native'
-
-import ImageSlider from 'react-native-image-slider';
 import firebase from '../config/firebaseconfig';
 import SliderImage from './SliderImage';
 import * as Colors from './Colors';
@@ -110,19 +108,9 @@ export default class Home extends Component {
                             keyExtractor={(item, index) => index}
                         />
                     </View>
-
-<<<<<<< HEAD
-                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{flex: 1}}/>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={[styles.stext]}>
-                                Xem thêm
-                            </Text>
-=======
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                         <TouchableOpacity onPress={() => {this.props.navigation.navigate('TouristAttraction')}} style={{flexDirection:'row'}}>
                             <Text style={styles.stext}>Xem thêm</Text>
->>>>>>> 0740ee7c5f00d27ec408c0e966977dcf4180da33
                             <Image source={require('../image/ic_right.png')}/>
                         </TouchableOpacity>
                     </View>

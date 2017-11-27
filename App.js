@@ -14,19 +14,12 @@ import {
 import {RouteStack} from "./Routes";
 
 export default class App extends Component<{}> {
-  render() {
-    return (
 
-
-      <View>
-        <SideMenu/>
-
-      </View>
-    );
+  render(){
+      return(
+          <RouteStack/>
+      );
   }
-}
-
-      <RouteStack/>
 }
 
 
