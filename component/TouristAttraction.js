@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import firebase from '../config/firebaseconfig'
+import firebase from '../config/firebaseconfig';
+import { Rating } from 'react-native-elements';
 
 export default class TouristAttraction extends Component<{}>{
 
@@ -17,7 +18,7 @@ export default class TouristAttraction extends Component<{}>{
         this.db = firebase.database();
         this.state = {
             array:[],
-            searchText: ''
+            searchText: "",
         }
 
         console.ignoredYellowBox = [
@@ -27,19 +28,25 @@ export default class TouristAttraction extends Component<{}>{
 
     searchTourist() {
         if (this.state.searchText.length < 1) {
-            this.loadList(db)
+            this.getData()
         }
         else {
-            let a = this.db;
+            let a = this.db.ref('trips').child('places');
             a.on('value', (dataSnapshot) => {
                 var array = [];
                 dataSnapshot.forEach((itemChild) => {
                     if (itemChild.val().name == this.state.searchText) {
-                        array.push({
-                            key: itemChild.key,
-                            adress: itemChild.adress,
-                            name: itemChild.val().name,
-                        })
+                        let tempObj = itemChild.val();
+                        tempObj.thumnail;
+                        tempObj.name;
+                        tempObj.adress;
+                        tempObj.short_desc;
+                        tempObj.acticle = [];
+                        tempObj.images_slide = [];
+                        itemChild.child('images_slide').forEach((img) => {
+                            tempObj.images_slide.push(img.val());
+                        });
+                        array.push(tempObj)
                     }
                 })
                 this.setState({
@@ -49,25 +56,6 @@ export default class TouristAttraction extends Component<{}>{
         }
     }
 
-    loadList(db) {
-        db.ref('trips').child('places').on('value', (snapshot) => {
-            var data = [];
-            snapshot.forEach((itemChild) => {
-                data.push({
-                    thumnail: itemChild.val().thumnail,
-                    name: itemChild.val().name,
-                    adress: itemChild.val().adress,
-                    short_desc: itemChild.val().short_desc,
-                    acticle: itemChild.val().acticle,
-                });
-
-            })
-            this.setState({
-                array: data
-            });
-        })
-    }
-
     getData = async () => {
 
         let a = await this.db.ref("trips").child('places');
@@ -75,6 +63,11 @@ export default class TouristAttraction extends Component<{}>{
             var data = [];
             snapshot.forEach((itemChild) => {
                 let tempObj = itemChild.val();
+                tempObj.thumnail;
+                tempObj.name;
+                tempObj.adress;
+                tempObj.short_desc;
+                tempObj.acticle = [];
                 tempObj.images_slide = [];
                 itemChild.child('images_slide').forEach((img) => {
                     tempObj.images_slide.push(img.val());
@@ -89,6 +82,11 @@ export default class TouristAttraction extends Component<{}>{
         this.getData()
     }
 
+    ratingCompleted(rating) {
+        console.log("Rating is: " + rating)
+    }
+
+
     onRenderItem = ({item}) => (
         <TouchableOpacity onPress={() => {this.props.navigation.navigate('Details', {name: item.name,
             short_desc: item.short_desc, images_slide: item.images_slide, acticle: item.acticle})}}>
@@ -97,7 +95,14 @@ export default class TouristAttraction extends Component<{}>{
                 <View style={css.textflat}>
                     <Text style={css.text}>{item.name}</Text>
                     <Text style={css.text}>{item.adress}</Text>
-                    <Image source={{uri: 'http://www.potters.com.au/wp-content/uploads/2017/09/five-stars.png'}} style={css.evalua}/>
+                    <Rating
+                        type="star"
+                        fractions={1}
+                        imageSize={20}
+                        startingValue={3.5}
+                        onFinishRating={this.ratingCompleted}
+                        style={{marginTop:5, backgroundColor:'#f8f8ff'}}
+                    />
                 </View>
             </View>
         </TouchableOpacity>
@@ -126,20 +131,12 @@ export default class TouristAttraction extends Component<{}>{
             </View>
         );
     }
-
-    componentDidMount() {
-        this.loadList(this.db);
-    }
 }
 
 const css = StyleSheet.create({
     container:{
         flex: 1,
         backgroundColor:'ghostwhite'
-    },
-    toolbar:{
-        backgroundColor:'#00c853',
-        height:56
     },
     search:{
         height:50,
@@ -187,9 +184,4 @@ const css = StyleSheet.create({
         width:'45%',
         height:'100%'
     },
-    evalua:{
-        marginTop:5,
-        width:70,
-        height:30
-    }
 });

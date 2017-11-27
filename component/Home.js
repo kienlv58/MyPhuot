@@ -8,7 +8,6 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native'
-
 import firebase from '../config/firebaseconfig';
 import * as Colors from './Colors';
 import {default as IconMat} from 'react-native-vector-icons/Ionicons';
@@ -146,7 +145,6 @@ export default class Home extends Component {
                             keyExtractor={(item, index) => index}
                         />
                     </View>
-
                 </ScrollView>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                     <TouchableOpacity onPress={() => {
