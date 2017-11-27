@@ -13,4 +13,4 @@ export class MyPhuot extends Component{
     }
 }
 
-AppRegistry.registerComponent('MyPhuot', () => Home);
+AppRegistry.registerComponent('MyPhuot', () => MyPhuot);

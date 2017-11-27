@@ -1,8 +1,8 @@
 import React from 'react';
 import {StackNavigator} from 'react-navigation';
-import TouristAttraction from './component/TouristAttraction'
 import Details from './component/Details'
 
+import TouristAttraction from './component/TouristAttraction';
 export const RouteStack = StackNavigator({
     TouristAttraction:{
         screen: TouristAttraction,

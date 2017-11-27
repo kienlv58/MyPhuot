@@ -21,11 +21,12 @@ const instructions = Platform.select({
 
 import {TestFirebase} from './component/testfirebase'
 import SideMenu from './component/routers';
+import TouristAttraction from './component/TouristAttraction';
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <SideMenu/>
+        <TouristAttraction/>
         {/*<Text style={styles.welcome}>*/}
           {/*Welcome to React Native!*/}
         {/*</Text>*/}
