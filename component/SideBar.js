@@ -4,12 +4,14 @@
 
 import React, {Component} from 'react'
 import {
-    View, Text, StyleSheet, Image, ScrollView
+    View, Text, StyleSheet, Image, ScrollView, TouchableOpacity
 } from 'react-native';
 
 import FastImage from 'react-native-fast-image'
 import * as Colors from './Colors';
 import ItemMenu from '../component/ItemMenu'
+import {sizeAvatar} from "./Dimen";
+
 export default class SideBar extends Component {
 
     render() {
@@ -50,11 +52,16 @@ export default class SideBar extends Component {
                     </View>
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
-                        <ItemMenu title="Đội của tôi" nameIcon="ios-contacts"/>
-                        <ItemMenu title="Quản lý đội" nameIcon="ios-people"/>
+                        <ItemMenu action={()=>{this.props.navigation.navigate('TouristAttraction')}}
+                                  title="Đội của tôi"
+                                  nameIcon="ios-contacts"/>
+                        <ItemMenu
+                                  title="Quản lý đội"
+                                  nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
-                        <ItemMenu title="Tin tức phượt" nameIcon="ios-paper"/>
+                        <ItemMenu title="Tin tức phượt"
+                                  nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out"/>
 
@@ -63,11 +70,8 @@ export default class SideBar extends Component {
                 </View>
             </ScrollView>
 
-
-
         )
     }
-
 
 }
 
@@ -82,8 +86,8 @@ const styleHeader = StyleSheet.create({
         height: null,
     }
     , image_circle: {
-        height: 56,
-        width: 56,
+        height: sizeAvatar,
+        width: sizeAvatar,
         borderRadius: 64
     },
 });
