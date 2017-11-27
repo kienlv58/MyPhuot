@@ -6,9 +6,17 @@ import {StackNavigator, TabNavigator, DrawerNavigator} from 'react-navigation';
 
 import SideBar from "../component/SideBar";
 import TestFirebase from "../component/testfirebase";
+import Home from './Home'
+
+export const RouteStack = StackNavigator({
+    Home: {
+        screen: Home,
+    }
+})
+
 const SideMenu = DrawerNavigator({
     HomeScreen: {
-        screen: TestFirebase
+        screen: RouteStack
     }
 }, {
     drawerWidth: 500,

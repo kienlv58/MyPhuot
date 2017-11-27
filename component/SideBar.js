@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import FastImage from 'react-native-fast-image'
-import * as Colors from '../component/colors';
+import * as Colors from './Colors';
 import ItemMenu from '../component/ItemMenu'
 export default class SideBar extends Component {
 
@@ -44,8 +44,9 @@ export default class SideBar extends Component {
                         >
                         </Image>
                         <Text
-                            style={{fontSize: 30, fontWeight: 'bold', marginTop: 5, color: 'white'}}
-                        >Lo Van Kien</Text>
+                            style={{fontSize: 20, fontWeight: 'bold', marginTop: 5, color: 'white'}}>
+                            Lo Van Kien
+                        </Text>
                     </View>
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
@@ -81,8 +82,8 @@ const styleHeader = StyleSheet.create({
         height: null,
     }
     , image_circle: {
-        height: 128,
-        width: 128,
+        height: 56,
+        width: 56,
         borderRadius: 64
     },
 });
