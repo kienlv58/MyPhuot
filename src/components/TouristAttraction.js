@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import firebase from '../config/firebaseconfig';
+import firebase from '../configs/firebaseconfig';
 import { Rating } from 'react-native-elements';
 
 export default class TouristAttraction extends Component<{}>{

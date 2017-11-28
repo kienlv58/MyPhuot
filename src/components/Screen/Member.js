@@ -24,7 +24,7 @@ export default class Member extends Component {
                     renderItem={({item}) =>
                         <View style={{flexDirection: 'row', padding: 10}}>
                             <View style={{flex: 1}}>
-                                <Image source={require('./icon_none_image.jpg')}/>
+                                <Image source={require('../../images/icon_none_image.jpg')}/>
                             </View>
                             <View style={{flex: 3, flexDirection: 'column'}}>
                                 <Text style={{fontWeight: 'bold'}}>{item.name}</Text>

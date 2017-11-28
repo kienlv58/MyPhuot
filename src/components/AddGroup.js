@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image} from 'react-native';
-import {firebaseApp} from "./FirebaseConfig";
+import firebase from '../configs/firebaseconfig';
 
 
 export default class AddGroup extends Component {
     constructor(props) {
         super(props);
-        this.itemRef = firebaseApp.database().ref('team management');
+        this.itemRef = firebase.database().ref('team management');
         this.state = {
             isDateTimePickerVisible: false,
             avatarSource: '',
@@ -122,7 +122,7 @@ export default class AddGroup extends Component {
                 <View style={{flex: 1.1, flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{paddingLeft: 7, flex: 2}}><Text style={{fontWeight: 'bold'}}>Ảnh đại diện nhóm </Text></View>
                     <TouchableOpacity style={{flex: 0.75}} onPress={()=>{this.showImagePicker()}}>
-                        <Image source={require('./image/icon_none_image_color.png')}/>
+                        <Image source={require('../images/icon_none_image_color.png')}/>
 
                     </TouchableOpacity>
 

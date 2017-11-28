@@ -5,7 +5,7 @@ import {
     FlatList,
     Image
 } from 'react-native'
-import firebase from '../config/firebaseconfig';
+import firebase from '../configs/firebaseconfig';
 
 export default class PhuotNews extends Component {
     constructor(props) {
@@ -60,7 +60,6 @@ export default class PhuotNews extends Component {
                 <FlatList
                     data={this.state.news}
                     renderItem={this.newsItem}
-                    numColumns={2}
                     keyExtractor={(item, index) => index}/>
             </View>
         );

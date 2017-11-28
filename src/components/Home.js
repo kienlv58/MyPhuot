@@ -8,11 +8,12 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native'
-import firebase from '../config/firebaseconfig';
-import * as Colors from './Colors';
+
+import firebase from '../configs/firebaseconfig'
+import * as Colors from '../utils/Colors';
 import {default as IconMat} from 'react-native-vector-icons/Ionicons';
 import Slide from './Slide';
-import {heightImage, sizeTextFlatList, sizeTextHome, widthImage} from './Dimen';
+import {heightImage, sizeTextFlatList, sizeTextHome, widthImage} from '../utils/Dimen';
 
 
 export default class Home extends Component {
@@ -150,9 +151,11 @@ export default class Home extends Component {
                     <TouchableOpacity onPress={() => {
                         this.props.navigation.navigate('TouristAttraction')
                     }} style={{flexDirection: 'row'}}>
-
+                        <View style={{flexDirection:'row', alignItems:'center',
+                            justifyContent:'center'}}>
                         <Text style={styles.stext}>Xem thêm</Text>
-                        <Image source={require('../image/ic_right.png')}/>
+                        <Image style={{marginTop:5}} source={require('../images/ic_right.png')}/>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>

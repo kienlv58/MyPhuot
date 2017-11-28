@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ImageSlider from 'react-native-image-slider';
-import firebase from '../config/firebaseconfig'
+import firebase from '../configs/firebaseconfig'
 
 export default class Slide extends Component<{}>{
 

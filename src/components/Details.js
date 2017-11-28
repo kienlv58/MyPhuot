@@ -8,8 +8,8 @@ import {
     ScrollView,
 } from 'react-native';
 import Slide from './Slide'
-import {TabBar} from "../Routes";
-import firebase from '../config/firebaseconfig'
+import {TabBar} from "../../Routes";
+import firebase from '../configs/firebaseconfig'
 import { Rating } from 'react-native-elements';
 import ViewMoreText from 'react-native-view-more-text';
 
