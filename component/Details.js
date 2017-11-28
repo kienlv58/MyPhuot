@@ -40,7 +40,7 @@ export default class Details extends Component<{}>{
                             imageSize={35}
                             startingValue={3.5}
                             onFinishRating={this.ratingCompleted}
-                            style={{ marginTop:5 }}
+                            style={{ marginTop:5, marginBottom: 5 }}
                         />
                     </View>
                     <TabBar/>

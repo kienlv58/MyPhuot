@@ -101,7 +101,7 @@ export default class TouristAttraction extends Component<{}>{
                         imageSize={20}
                         startingValue={3.5}
                         onFinishRating={this.ratingCompleted}
-                        style={{marginTop:5, backgroundColor:'#f8f8ff'}}
+                        style={{marginTop:5}}
                     />
                 </View>
             </View>
@@ -136,7 +136,7 @@ export default class TouristAttraction extends Component<{}>{
 const css = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor:'ghostwhite'
+        backgroundColor:'white'
     },
     search:{
         height:50,
@@ -173,15 +173,22 @@ const css = StyleSheet.create({
         fontSize:16,
     },
     flatlist:{
-        borderBottomWidth:1,
-        padding:15,
+        marginLeft: 5,
+        marginRight:5,
+        marginBottom: 5,
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingBottom: 8,
+        paddingLeft: 10,
+        paddingRight: '18%',
+        paddingTop: 8,
         flexDirection:'row'
     },
     textflat:{
         marginLeft:10,
     },
     image:{
-        width:'45%',
+        width:'40%',
         height:'100%'
     },
 });
