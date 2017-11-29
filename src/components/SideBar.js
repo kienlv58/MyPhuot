@@ -2,7 +2,7 @@
  * Created by kien.lovan on 11/23/2017.
  */
 
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {
     View, Text, StyleSheet, Image, ScrollView, TouchableOpacity
 } from 'react-native';
@@ -13,34 +13,60 @@ import FastImage from 'react-native-fast-image'
 import * as Colors from '../utils/Colors';
 import ItemMenu from './ItemMenu'
 import {sizeAvatar} from "../utils/Dimen";
+import {connect} from 'react-redux'
+import {login, logout} from  '../actions/actionUser'
 
-export default class SideBar extends Component {
+class SideBar extends Component {
+
 
     constructor(props) {
         super(props);
-
         this.state = {
-            isLogin: false,
-
+            uriCover: 'http://9mobi.vn/cf/images/2015/03/nkk/hinh-nen-1.jpg',
+            isLoaded:false
         }
+
+
     }
 
-    getUserInfo = ()=>{
-        console.log("state",this.state);
-        var api = 'https://graph.facebook.com/v2.8/' + this.state.user.userId +
-            '?fields=name,email&access_token=' + this.state.user.token;
+    getUriCover = (userId,token) => {
+        fetch('https://graph.facebook.com/' + userId + '?fields=cover&access_token=' + token,
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((res) => res.json()).then(res => {
+            console.log("dt", res);
+            this.setState({uriCover: res.cover.source,isLoaded:true})
+        }).done();
+    };
+
+    getUserInfo = (user) => {
+
+        var api = 'https://graph.facebook.com/v2.8/' + user.userId +
+            '?fields=name,email&access_token=' + user.token;
         fetch(api)
             .then((response) => response.json())
-            .then( (responseData) => {
-                console.log('responseData',responseData)
-                this.setState({profile:responseData});
+            .then((responseData) => {
+                this.props.Login(user, responseData);
             })
             .done();
     }
 
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.mydata.isLogin && this.state.isLoaded == false) {
+
+            this.getUriCover(nextProps.mydata.user.userId,nextProps.mydata.user.token);
+
+        }
+        return true;
+
+    }
+
     render() {
-        var _this = this;
-      //  console.log("state",this.state);
+        console.log("render----",this.props.mydata);
         return (
             <ScrollView contentContainerStyle={{borderWidth: 0, flex: 1}}>
                 <View style={styleHeader.header}>
@@ -48,7 +74,9 @@ export default class SideBar extends Component {
 
                     <Image style={styleHeader.image}
 
-                           source={{
+                           source={this.props.mydata.isLogin ? {
+                               uri: this.state.uriCover
+                           } : {
                                uri: 'http://9mobi.vn/cf/images/2015/03/nkk/hinh-nen-1.jpg',
 
                            }}
@@ -66,48 +94,50 @@ export default class SideBar extends Component {
                     }}>
                         <Image style={styleHeader.image_circle}
 
-                               source={{
+                               source={this.props.mydata.isLogin ? {
+                                   uri: 'https://graph.facebook.com/' + this.props.mydata.user.userId + '/picture?type=large&w‌​idth=720&height=720'
+                               } : {
                                    uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg',
                                }}
                                resizeMode="cover"
                         >
                         </Image>
-                        {this.state.isLogin ?
+                        {this.props.mydata.isLogin ?
                             <Text
                                 style={{fontSize: 20, fontWeight: 'bold', marginTop: 5, color: 'white'}}>
-                                {this.state.profile?this.state.profile.name:null}
+                                {this.props.mydata.profile ? this.props.mydata.profile.name : null}
                             </Text> : <FBLogin
                                 style={{maxHeight: 40, borderRadius: 2}}
-                                ref={(fbLogin) => { this.fbLogin = fbLogin }}
-                                permissions={["email","user_friends"]}
+                                ref={(fbLogin) => {
+                                    this.fbLogin = fbLogin
+                                }}
+                                permissions={["email", "user_friends"]}
                                 loginBehavior={FBLoginManager.LoginBehaviors.Native}
-                                onLogin={function(data){
+                                onLogin={(data) => {
                                     console.log("Logged in!");
                                     console.log(data);
-                                    _this.setState({ user : data.credentials,profile:data.profile,isLogin:true});
+                                    this.props.Login(data.credentials, data.profile);
                                 }}
-                                onLogout={function(){
+                                onLogout={ () => {
                                     console.log("Logged out.");
-                                    _this.setState({ user : null });
                                 }}
-                                onLoginFound={function(data){
+                                onLoginFound={ (data) => {
                                     console.log("Existing login found.");
                                     console.log(data);
-                                    _this.setState({ user : data.credentials,isLogin:true});
-                                    _this.getUserInfo();
+                                    this.getUserInfo(data.credentials);
                                 }}
-                                onLoginNotFound={function(){
+                                onLoginNotFound={function () {
                                     console.log("No user logged in.");
-                                    _this.setState({ user : null });
+
                                 }}
-                                onError={function(data){
+                                onError={function (data) {
                                     console.log("ERROR");
                                     console.log(data);
                                 }}
-                                onCancel={function(){
+                                onCancel={function () {
                                     console.log("User cancelled.");
                                 }}
-                                onPermissionsMissing={function(data){
+                                onPermissionsMissing={function (data) {
                                     console.log("Check permissions!");
                                     console.log(data);
                                 }}
@@ -117,16 +147,20 @@ export default class SideBar extends Component {
 
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
-                        <ItemMenu action={()=>{this.props.navigation.navigate('TouristAttraction')}}
+                        <ItemMenu action={() => {
+                            this.props.navigation.navigate('TouristAttraction')
+                        }}
                                   title="Đội của tôi"
                                   nameIcon="ios-contacts"/>
                         <ItemMenu
-                                  title="Quản lý đội"
-                                  nameIcon="ios-people"/>
+                            title="Quản lý đội"
+                            nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
-                        <ItemMenu action={()=>{this.props.navigation.navigate('PhuotNews')}}
-                            title="Tin tức phượt"
+                        <ItemMenu action={() => {
+                            this.props.navigation.navigate('PhuotNews')
+                        }}
+                                  title="Tin tức phượt"
                                   nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>
@@ -140,6 +174,20 @@ export default class SideBar extends Component {
     }
 
 }
+function mapStateToProps(state, props) {
+
+    const mydata = state.reducerUser;
+
+    return {mydata}
+
+}
+const bindActionsToDispatch = (dispatch) => (
+    {
+        Login: (user, profile) => dispatch(login(user, profile)),
+
+    }
+);
+export default connect(mapStateToProps, bindActionsToDispatch)(SideBar);
 
 const styleHeader = StyleSheet.create({
     header: {

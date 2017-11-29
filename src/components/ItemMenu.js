@@ -9,20 +9,27 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {default as IconFontAwesome} from 'react-native-vector-icons/FontAwesome';
 import {default as IconMat} from 'react-native-vector-icons/Ionicons';
-
-
-export default class ItemMenu extends Component {
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+import {connect} from 'react-redux';
+import {logout} from '../actions/actionUser'
+class ItemMenu extends Component {
 
     constructor(props) {
         super(props)
     }
 
-    onPress = ()=>{
-        switch (this.props.title){
+    onPress = () => {
+        switch (this.props.title) {
             case 'Đăng xuất':
+                if(this.props.isLogin)
+                    this.props.Logout();
 
                 break;
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return false;
     }
 
     render() {
@@ -31,7 +38,7 @@ export default class ItemMenu extends Component {
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
 
-                    onPress={this.onPress()}
+                    onPress={this.onPress}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>
@@ -42,4 +49,17 @@ export default class ItemMenu extends Component {
     }
 
 
+
 }
+const mapStateToProps = (state) => {
+    return {
+        isLogin: state.reducerUser.isLogin
+    }
+};
+const bindActionsToDispatch = (dispatch) => {
+    return {
+        Logout: () => dispatch(logout())
+    }
+};
+
+export default connect(mapStateToProps,bindActionsToDispatch)(ItemMenu);
