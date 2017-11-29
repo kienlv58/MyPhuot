@@ -199,7 +199,7 @@ var styles = StyleSheet.create({
         height: heightImage,
         width: widthImage,
         marginTop: 10,
-        marginBottom: 5,
+        marginBottom: 10,
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'ghostwhite'

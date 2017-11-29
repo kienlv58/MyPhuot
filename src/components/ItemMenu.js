@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, Text, TouchableOpacity
+    View, Text, TouchableOpacity, Alert
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,10 +17,24 @@ export default class ItemMenu extends Component {
         super(props)
     }
 
-    onPress = ()=>{
-        switch (this.props.title){
+    onPress = () => {
+        switch (this.props.title) {
             case 'Đăng xuất':
 
+                break;
+            case 'Quản lý đội':
+                Alert.alert(this.props.title);
+                ()=>{this.props.navigation.navigate('PhuotNews')}
+                break;
+            case 'lịch trình của tôi':
+                break;
+            case 'Địa điểm yêu thích':
+                break;
+            case 'Tin tức phượt':
+                Alert.alert(this.props.title);
+                ()=>{this.props.navigation.navigate('PhuotNews')}
+                break;
+            case 'Diễn đàn phượt':
                 break;
         }
     }
@@ -30,8 +44,7 @@ export default class ItemMenu extends Component {
             <View
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
-
-                    onPress={this.onPress()}
+                    onPress={this.props.action}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>

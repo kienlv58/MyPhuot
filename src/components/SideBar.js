@@ -25,22 +25,22 @@ export default class SideBar extends Component {
         }
     }
 
-    getUserInfo = ()=>{
-        console.log("state",this.state);
+    getUserInfo = () => {
+        console.log("state", this.state);
         var api = 'https://graph.facebook.com/v2.8/' + this.state.user.userId +
             '?fields=name,email&access_token=' + this.state.user.token;
         fetch(api)
             .then((response) => response.json())
-            .then( (responseData) => {
-                console.log('responseData',responseData)
-                this.setState({profile:responseData});
+            .then((responseData) => {
+                console.log('responseData', responseData)
+                this.setState({profile: responseData});
             })
             .done();
     }
 
     render() {
         var _this = this;
-      //  console.log("state",this.state);
+        //  console.log("state",this.state);
         return (
             <ScrollView contentContainerStyle={{borderWidth: 0, flex: 1}}>
                 <View style={styleHeader.header}>
@@ -49,7 +49,7 @@ export default class SideBar extends Component {
                     <Image style={styleHeader.image}
 
                            source={{
-                               uri: 'http://9mobi.vn/cf/images/2015/03/nkk/hinh-nen-1.jpg',
+                               uri: 'http://br-art.vn/wp-content/uploads/2017/06/background-hinh-nen-wallpaper-thien-nhien-phong-canh-dep-1-1024x561.jpg',
 
                            }}
                            resizeMode="cover"
@@ -75,39 +75,41 @@ export default class SideBar extends Component {
                         {this.state.isLogin ?
                             <Text
                                 style={{fontSize: 20, fontWeight: 'bold', marginTop: 5, color: 'white'}}>
-                                {this.state.profile?this.state.profile.name:null}
+                                {this.state.profile ? this.state.profile.name : null}
                             </Text> : <FBLogin
                                 style={{maxHeight: 40, borderRadius: 2}}
-                                ref={(fbLogin) => { this.fbLogin = fbLogin }}
-                                permissions={["email","user_friends"]}
+                                ref={(fbLogin) => {
+                                    this.fbLogin = fbLogin
+                                }}
+                                permissions={["email", "user_friends"]}
                                 loginBehavior={FBLoginManager.LoginBehaviors.Native}
-                                onLogin={function(data){
+                                onLogin={function (data) {
                                     console.log("Logged in!");
                                     console.log(data);
-                                    _this.setState({ user : data.credentials,profile:data.profile,isLogin:true});
+                                    _this.setState({user: data.credentials, profile: data.profile, isLogin: true});
                                 }}
-                                onLogout={function(){
+                                onLogout={function () {
                                     console.log("Logged out.");
-                                    _this.setState({ user : null });
+                                    _this.setState({user: null});
                                 }}
-                                onLoginFound={function(data){
+                                onLoginFound={function (data) {
                                     console.log("Existing login found.");
                                     console.log(data);
-                                    _this.setState({ user : data.credentials,isLogin:true});
+                                    _this.setState({user: data.credentials, isLogin: true});
                                     _this.getUserInfo();
                                 }}
-                                onLoginNotFound={function(){
+                                onLoginNotFound={function () {
                                     console.log("No user logged in.");
-                                    _this.setState({ user : null });
+                                    _this.setState({user: null});
                                 }}
-                                onError={function(data){
+                                onError={function (data) {
                                     console.log("ERROR");
                                     console.log(data);
                                 }}
-                                onCancel={function(){
+                                onCancel={function () {
                                     console.log("User cancelled.");
                                 }}
-                                onPermissionsMissing={function(data){
+                                onPermissionsMissing={function (data) {
                                     console.log("Check permissions!");
                                     console.log(data);
                                 }}
@@ -117,17 +119,19 @@ export default class SideBar extends Component {
 
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
-                        <ItemMenu action={()=>{this.props.navigation.navigate('TouristAttraction')}}
+                        <ItemMenu
+                                  action={()=>{this.props.navigation.navigate('MyTeam')}}
                                   title="Đội của tôi"
                                   nameIcon="ios-contacts"/>
                         <ItemMenu
-                                  title="Quản lý đội"
-                                  nameIcon="ios-people"/>
+                            action={()=>{this.props.navigation.navigate('MyTeam')}}
+                            title="Quản lý đội"
+                            nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
                         <ItemMenu action={()=>{this.props.navigation.navigate('PhuotNews')}}
                             title="Tin tức phượt"
-                                  nameIcon="ios-paper"/>
+                            nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>
 

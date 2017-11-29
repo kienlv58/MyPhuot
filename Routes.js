@@ -13,6 +13,11 @@ import ScheduleDetails from './src/components/ScreenTabDetails/ScheduleDetails'
 import ServiceDetails from './src/components/ScreenTabDetails/ServiceDetails'
 import {widthMenu} from "./src/utils/Dimen";
 import PhuotNews from "./src/components/PhuotNews";
+import MyTeam from "./src/components/MyTeam";
+import {GroupStack} from "./src/components/RouterGroup";
+import TeamManagement from "./src/components/TeamManagement";
+import AddGroup from "./src/components/AddGroup";
+import ReadNews from "./src/components/ReadNews";
 
 export const RouteStack = StackNavigator({
     Home: {
@@ -35,7 +40,36 @@ export const RouteStack = StackNavigator({
             title: 'Details'
         }
     },
+    MyTeam: {
+        screen: MyTeam,
+        navigationOptions:{
+            title:'My Team'
+        }
 
+    },
+    TeamManagement: {
+        screen: TeamManagement,
+        navigationOptions:{
+            title:'Team Management',
+        }
+    },
+    AddGroup:{
+        screen:AddGroup,
+        navigationOptions:{
+            title:'Add Group',
+        }
+    },
+
+    PhuotNews:{
+        screen: PhuotNews,
+        navigationOptions: {
+            title: 'Tin tức'
+        }
+    },
+
+    ReadNews:{
+        screen: ReadNews,
+    }
 
 
 })
@@ -48,9 +82,9 @@ export default SlideMenu = DrawerNavigator(
         TouristAttraction: {
             screen: TouristAttraction,
         },
-        PhuotNews:{
-            screen: PhuotNews,
-        }
+        GroupStack:{
+            screen: GroupStack
+        },
     },
 
     {
