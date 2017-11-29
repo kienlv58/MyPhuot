@@ -21,6 +21,7 @@ export default class Details extends Component<{}>{
     }
 
     render(){
+        console.log("render component name")
         return(
             <View style={details.container}>
                 <ScrollView contentContainerStyle={{borderWidth: 0, flex: 1}}>
@@ -57,6 +58,7 @@ const details = StyleSheet.create({
         backgroundColor:'white'
     },
     title:{
+        marginTop:10,
         backgroundColor:'deepskyblue',
         padding:5,
     },

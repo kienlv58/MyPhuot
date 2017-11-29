@@ -6,10 +6,14 @@ import {
     TextInput,
     FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    AsyncStorage
 } from 'react-native';
 import firebase from '../configs/firebaseconfig';
 import { Rating } from 'react-native-elements';
+
+// const ref = firebase.database().ref("trips").child('places').push();
+// var key;
 
 export default class TouristAttraction extends Component<{}>{
 
@@ -41,7 +45,7 @@ export default class TouristAttraction extends Component<{}>{
                         tempObj.name;
                         tempObj.adress;
                         tempObj.short_desc;
-                        tempObj.acticle = [];
+                        tempObj.acticle;
                         tempObj.images_slide = [];
                         itemChild.child('images_slide').forEach((img) => {
                             tempObj.images_slide.push(img.val());
@@ -63,16 +67,18 @@ export default class TouristAttraction extends Component<{}>{
             var data = [];
             snapshot.forEach((itemChild) => {
                 let tempObj = itemChild.val();
-                tempObj.thumnail;
-                tempObj.name;
-                tempObj.adress;
-                tempObj.short_desc;
-                tempObj.acticle = [];
                 tempObj.images_slide = [];
                 itemChild.child('images_slide').forEach((img) => {
                     tempObj.images_slide.push(img.val());
                 });
-                data.push(tempObj);
+                data.push({
+                    thumnail: itemChild.val().thumnail,
+                    name: itemChild.val().name,
+                    adress: itemChild.val().adress,
+                    short_desc: itemChild.val().short_desc,
+                    images_slide: tempObj.images_slide,
+                    key: itemChild.key
+                })
             })
             this.setState({array: data});
         })
@@ -88,10 +94,12 @@ export default class TouristAttraction extends Component<{}>{
 
 
     onRenderItem = ({item}) => (
-        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Details', {name: item.name,
-            short_desc: item.short_desc, images_slide: item.images_slide, acticle: item.acticle})}}>
+        <TouchableOpacity onPress={() => {
+            AsyncStorage.setItem('placesKey', item.key)
+            this.props.navigation.navigate('Details', {name: item.name,
+            short_desc: item.short_desc, images_slide: item.images_slide, key: item.key})}}>
             <View style={css.flatlist}>
-                <Image source={{uri: item.thumnail}} style={css.image}/>
+                <Image source={{uri: item.thumnail}} style={css.image} resizeMode="cover"/>
                 <View style={css.textflat}>
                     <Text style={css.text}>{item.name}</Text>
                     <Text style={css.text}>{item.adress}</Text>
@@ -109,6 +117,7 @@ export default class TouristAttraction extends Component<{}>{
     )
 
     render() {
+        console.log("render component name")
         return (
             <View style={css.container}>
                 <View style={css.search}>
