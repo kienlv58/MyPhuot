@@ -3,7 +3,7 @@
  */
 
 import {combineReducers} from 'redux'
-import reducerUser from 'reducerUser'
+import reducerUser from '../reducers/reducerUser'
 
 export default combineReducers({
     reducerUser

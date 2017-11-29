@@ -9,9 +9,10 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {default as IconFontAwesome} from 'react-native-vector-icons/FontAwesome';
 import {default as IconMat} from 'react-native-vector-icons/Ionicons';
-
-
-export default class ItemMenu extends Component {
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+import {connect} from 'react-redux';
+import {logout} from '../actions/actionUser'
+class ItemMenu extends Component {
 
     constructor(props) {
         super(props)
@@ -20,23 +21,26 @@ export default class ItemMenu extends Component {
     onPress = () => {
         switch (this.props.title) {
             case 'Đăng xuất':
+                if(this.props.isLogin)
+                    this.props.Logout();
 
                 break;
             case 'Quản lý đội':
-                Alert.alert(this.props.title);
-                ()=>{this.props.navigation.navigate('PhuotNews')}
                 break;
             case 'lịch trình của tôi':
                 break;
             case 'Địa điểm yêu thích':
                 break;
             case 'Tin tức phượt':
-                Alert.alert(this.props.title);
-                ()=>{this.props.navigation.navigate('PhuotNews')}
+                this.props.navigation.navigate('Details');
                 break;
             case 'Diễn đàn phượt':
                 break;
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return false;
     }
 
     render() {
@@ -44,7 +48,7 @@ export default class ItemMenu extends Component {
             <View
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
-                    onPress={this.props.action}
+                    onPress={this.onPress}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
                              style={{marginLeft: 10, marginRight: 10}}/>
@@ -55,4 +59,17 @@ export default class ItemMenu extends Component {
     }
 
 
+
 }
+const mapStateToProps = (state) => {
+    return {
+        isLogin: state.reducerUser.isLogin
+    }
+};
+const bindActionsToDispatch = (dispatch) => {
+    return {
+        Logout: () => dispatch(logout())
+    }
+};
+
+export default connect(mapStateToProps,bindActionsToDispatch)(ItemMenu);
