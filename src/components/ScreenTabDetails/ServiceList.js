@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import firebase from '../../configs/firebaseconfig';
 
-export default class PostsDetails extends Component {
+export default class ServiceList extends Component {
 
     constructor(props){
         super (props);
@@ -26,14 +26,13 @@ export default class PostsDetails extends Component {
 
     getData = async (placesKey) => {
 
-        let a = await this.db.ref("trips").child('places').child(placesKey).child('acticle');
+        let a = await this.db.ref("trips").child('places').child(placesKey).child('services').child(this.props.navigation.state.params.key);
         a.on('value', (snapshot) => {
             var data = [];
             snapshot.forEach((itemChild) => {
                 let tempObj = itemChild.val();
                 tempObj.title;
                 tempObj.description;
-                tempObj.short_desc;
                 tempObj.thumnail;
                 data.push(tempObj);
             })
@@ -67,7 +66,6 @@ export default class PostsDetails extends Component {
                     backgroundColor: 'rgba(52, 52, 52, 0.5)',
                 }}>
                     <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>{item.title}</Text>
-                    <Text style={{fontSize: 16, color: 'white'}}>{item.short_desc}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -101,7 +99,5 @@ const post = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'whitesmoke',
-        borderBottomWidth: 1,
-        zIndex: 2
     }
 });

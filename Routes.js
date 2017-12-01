@@ -14,62 +14,7 @@ import ServiceDetails from './src/components/ScreenTabDetails/ServiceDetails';
 import {widthMenu} from "./src/utils/Dimen";
 import PhuotNews from "./src/components/PhuotNews";
 import Post from "./src/components/ScreenTabDetails/Post";
-
-export const RouteStack = StackNavigator({
-    Home: {
-        screen: Home,
-        header: navigation => ({
-            style: {
-                backgroundColor: '#00fa9a'
-            }
-        }),
-    },
-    TouristAttraction:{
-        screen: TouristAttraction,
-        navigationOptions: {
-            title: 'Tourist Attraction'
-        }
-    },
-    Details: {
-        screen: Details,
-        navigationOptions: {
-            title: 'Details'
-        }
-    },
-})
-
-// export const PostStack = StackNavigator({
-//     PostsDetails:{
-//         screen: PostsDetails,
-//     },
-//     Post: {
-//         screen: Post,
-//         navigationOptions:{
-//             title: 'Post'
-//         }
-//     }
-// })
-
-export default SlideMenu = DrawerNavigator(
-    {
-        menu: {
-            screen: RouteStack
-        },
-        TouristAttraction: {
-            screen: TouristAttraction,
-        },
-        PhuotNews:{
-            screen: PhuotNews,
-        }
-    },
-
-    {
-        drawerWidth: widthMenu,
-        drawerPosition: "left",
-        contentComponent: props => <SideBar {...props}/>
-
-    },
-);
+import ServiceList from "./src/components/ScreenTabDetails/ServiceList";
 
 export const TabBar = TabNavigator({
     PostsDetails:{
@@ -108,3 +53,88 @@ export const TabBar = TabNavigator({
         },
     }
 });
+
+export const PostStack = StackNavigator({
+    PostsDetails:{
+        screen: PostsDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+})
+export const ScheduleStack = StackNavigator({
+    ScheduleDetails:{
+        screen: ScheduleDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+})
+export const ServiceStack = StackNavigator({
+    PostsDetails:{
+        screen: ServiceDetails,
+    },
+    ServiceList: {
+        screen: ServiceList,
+    }
+})
+
+export const RouteStack = StackNavigator({
+    Home: {
+        screen: Home,
+        header: navigation => ({
+            style: {
+                backgroundColor: '#00fa9a'
+            }
+        }),
+    },
+    TouristAttraction:{
+        screen: TouristAttraction,
+        navigationOptions: {
+            title: 'Tourist Attraction'
+        }
+    },
+    Details: {
+        screen: Details,
+        navigationOptions: {
+            title: 'Details'
+        }
+    },
+    Tabbar: {
+        screen: TabBar
+    },
+    PostsDetails: {
+        screen: PostsDetails
+    },
+    Post:{
+        screen: Post
+    }
+})
+
+export default SlideMenu = DrawerNavigator(
+    {
+        menu: {
+            screen: RouteStack
+        },
+        TouristAttraction: {
+            screen: TouristAttraction,
+        },
+        PhuotNews:{
+            screen: PhuotNews,
+        }
+    },
+
+    {
+        drawerWidth: widthMenu,
+        drawerPosition: "left",
+        contentComponent: props => <SideBar {...props}/>
+
+    },
+);
+

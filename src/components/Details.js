@@ -39,7 +39,8 @@ export default class Details extends Component<{}>{
                             type="star"
                             fractions={1}
                             imageSize={35}
-                            startingValue={3.5}
+                            readonly
+                            startingValue={5}
                             onFinishRating={this.ratingCompleted}
                             style={{ marginTop:5, marginBottom: 5 }}
                         />
@@ -58,8 +59,8 @@ const details = StyleSheet.create({
         backgroundColor:'white'
     },
     title:{
-        marginTop:10,
-        backgroundColor:'deepskyblue',
+        marginTop: 8,
+        backgroundColor:'skyblue',
         padding:5,
     },
     text:{
