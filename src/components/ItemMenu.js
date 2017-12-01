@@ -14,37 +14,38 @@ import {connect} from 'react-redux';
 import {logout} from '../actions/actionUser'
 
 class ItemMenu extends Component {
+    static navigationOptions = ({navigation}) => {
+
+    }
 
     constructor(props) {
         super(props)
     }
 
     onPress = () => {
-        switch (this.props.title) {
-            case 'Đăng xuất':
-                if (this.props.isLogin)
-                    this.props.Logout();
-                break;
-            case 'Quản lý đội':
+        if (this.props.isLogin)
+            this.props.Logout();
 
-                break;
-            case 'lịch trình của tôi':
-
-                break;
-            case 'Địa điểm yêu thích':
-                console.log("Địa điểm yêu thích");
-                break;
-            case 'Tin tức phượt':
-
-                break;
-            case 'Diễn đàn phượt':
-
-                break;
-        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         return false;
+    }
+
+    onClick() {
+        switch (this.props.title) {
+            case 'Đăng xuất':
+                return this.onPress()
+                break;
+            default:
+                return this.props.action;
+                break;
+        }
+        /*if (this.props.title=='Đăng xuất'){
+            return this.onPress()
+        } else {
+            return this.props.action;
+        }*/
     }
 
     render() {
@@ -52,11 +53,11 @@ class ItemMenu extends Component {
             <View
                 style={{flex: 1, maxHeight: 50}}>
                 <TouchableOpacity
-                    onPress={this.onPress}
+                    onPress={this.onClick()}
                     style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <IconMat name={this.props.nameIcon} size={30} color="#ffffff"
+                    <IconMat name={this.props.nameIcon} size={30} color="green"
                              style={{marginLeft: 10, marginRight: 10}}/>
-                    <Text style={{flex: 1, fontSize: 20, fontWeight: 'bold', color: 'white'}}>{this.props.title}</Text>
+                    <Text style={{flex: 1, fontSize: 20, fontWeight: 'bold', color: 'green'}}>{this.props.title}</Text>
                 </TouchableOpacity>
             </View>
         )

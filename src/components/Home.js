@@ -7,6 +7,7 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
+    AsyncStorage
 } from 'react-native'
 
 import firebase from '../configs/firebaseconfig'
@@ -65,18 +66,21 @@ export default class Home extends Component {
         a.on('value', (snapshot) => {
             var data = [];
             snapshot.forEach((itemChild) => {
-                if (data.length < 6) {
-                    let tempObj = itemChild.val();
-                    tempObj.thumnail;
-                    tempObj.name;
-                    tempObj.adress;
-                    tempObj.short_desc;
-                    tempObj.acticle = [];
-                    tempObj.images_slide = [];
-                    itemChild.child('images_slide').forEach((img) => {
-                        tempObj.images_slide.push(img.val());
-                    });
-                    data.push(tempObj);
+                let tempObj = itemChild.val();
+                tempObj.images_slide = [];
+                itemChild.child('images_slide').forEach((img) => {
+                    tempObj.images_slide.push(img.val());
+                });
+                if (data.length<6) {
+                    data.push({
+                        thumnail: itemChild.val().thumnail,
+                        name: itemChild.val().name,
+                        adress: itemChild.val().adress,
+                        short_desc: itemChild.val().short_desc,
+                        images_slide: tempObj.images_slide,
+                        key: itemChild.key,
+                        rate: itemChild.val().rate
+                    })
                 }
             })
             this.setState({
@@ -95,8 +99,10 @@ export default class Home extends Component {
     //ITEM FLATLIST
     eachItem = ({item}) => (
         <TouchableOpacity onPress={() => {
+            AsyncStorage.setItem('placesKey', item.key)
             this.props.navigation.navigate('Details', {
                 name: item.name,
+                rate: item.rate,
                 short_desc: item.short_desc, images_slide: item.images_slide, acticle: item.acticle
             })
         }}>

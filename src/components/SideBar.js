@@ -147,17 +147,30 @@ class SideBar extends Component {
                     </View>
 
 
-                    <View style={{flex: 4, backgroundColor: Colors.background_color}}>
+                    <View style={{flex: 4, backgroundColor: 'white'}}>
 
-                        <ItemMenu title="Đội của tôi"
+                        <ItemMenu action={() => {
+                            this.props.navigation.navigate('MyTeam')
+                        }}
+                                  title="Đội của tôi"
                                   nameIcon="ios-contacts"/>
                         <ItemMenu title="Quản lý đội"
+                                  action={() => {
+                                      this.props.navigation.navigate('TeamManagement')
+                                  }}
                                   nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
                         <ItemMenu title="Tin tức phượt"
+                                  action={() => {
+                                      this.props.navigation.navigate('PhuotNews')
+                                  }}
                                   nameIcon="ios-paper"/>
-                        <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
+                        <ItemMenu action={() => {
+                            this.props.navigation.navigate('MapsTeam')
+                        }}
+                            title="Diễn đàn phượt ( Test Maps)" nameIcon="ios-chatbubbles"/>
+
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>
 
 

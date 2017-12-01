@@ -12,9 +12,6 @@ import {
 import firebase from '../configs/firebaseconfig';
 import { Rating } from 'react-native-elements';
 
-// const ref = firebase.database().ref("trips").child('places').push();
-// var key;
-
 export default class TouristAttraction extends Component<{}>{
 
     constructor(props){
@@ -77,7 +74,8 @@ export default class TouristAttraction extends Component<{}>{
                     adress: itemChild.val().adress,
                     short_desc: itemChild.val().short_desc,
                     images_slide: tempObj.images_slide,
-                    key: itemChild.key
+                    key: itemChild.key,
+                    rate: itemChild.rate
                 })
             })
             this.setState({array: data});
@@ -107,7 +105,8 @@ export default class TouristAttraction extends Component<{}>{
                         type="star"
                         fractions={1}
                         imageSize={20}
-                        startingValue={3.5}
+                        readonly
+                        startingValue={5}
                         onFinishRating={this.ratingCompleted}
                         style={{marginTop:5}}
                     />
@@ -194,10 +193,10 @@ const css = StyleSheet.create({
         flexDirection:'row'
     },
     textflat:{
+        flex: 1.2,
         marginLeft:10,
     },
     image:{
-        width:'40%',
-        height:'100%'
+        flex: 1
     },
 });

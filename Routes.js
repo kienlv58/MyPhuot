@@ -21,6 +21,84 @@ import AddGroup from "./src/components/AddGroup";
 import ReadNews from "./src/components/ReadNews";
 
 import Post from "./src/components/ScreenTabDetails/Post";
+import ServiceList from "./src/components/ScreenTabDetails/ServiceList";
+import MapsTeam from "./src/components/MapsTeam";
+
+export const PostStack = StackNavigator({
+    PostsDetails:{
+        screen: PostsDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+},{
+    headerMode: 'none'
+})
+export const ScheduleStack = StackNavigator({
+    ScheduleDetails:{
+        screen: ScheduleDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+},{
+    headerMode: 'none'
+})
+export const ServiceStack = StackNavigator({
+    PostsDetails:{
+        screen: ServiceDetails,
+    },
+    ServiceList: {
+        screen: ServiceList,
+    }
+},{
+    headerMode: 'none'
+})
+
+export const TabBar = TabNavigator({
+    PostsDetails:{
+        screen: PostStack,
+        navigationOptions: {
+            tabBarLabel: 'Bài viết',
+        }
+    },
+    ScheduleDetails:{
+        screen: ScheduleStack,
+        navigationOptions: {
+            tabBarLabel: 'Lịch trình',
+        }
+    },
+    ServiceDetails:{
+        screen: ServiceStack,
+        navigationOptions: {
+            tabBarLabel: 'Dịch vụ',
+        }
+    },
+},{
+    tabBarPosition: 'top',
+    animationEnabled: true,
+    tabBarOptions: {
+        upperCaseLabel: false,
+        activeTintColor: 'white',
+        inactiveTintColor: 'black',
+        indicatorStyle: {
+            backgroundColor: 'white'
+        },
+        labelStyle: {
+            fontSize: 14,
+        },
+        style: {
+            backgroundColor: 'deepskyblue',
+        },
+    }
+});
+
 
 
 export const RouteStack = StackNavigator({
@@ -76,19 +154,10 @@ export const RouteStack = StackNavigator({
         screen: ReadNews,
     },
 
+    MapsTeam:{
+        screen: MapsTeam,
+    }
 })
-
-// export const PostStack = StackNavigator({
-//     PostsDetails:{
-//         screen: PostsDetails,
-//     },
-//     Post: {
-//         screen: Post,
-//         navigationOptions:{
-//             title: 'Post'
-//         }
-//     }
-// })
 
 export default SlideMenu = DrawerNavigator(
     {
@@ -111,40 +180,3 @@ export default SlideMenu = DrawerNavigator(
     },
 );
 
-export const TabBar = TabNavigator({
-    PostsDetails:{
-        screen: PostsDetails,
-        navigationOptions: {
-            tabBarLabel: 'Bài viết',
-        }
-    },
-    ScheduleDetails:{
-        screen: ScheduleDetails,
-        navigationOptions: {
-            tabBarLabel: 'Lịch trình',
-        }
-    },
-    ServiceDetails:{
-        screen: ServiceDetails,
-        navigationOptions: {
-            tabBarLabel: 'Dịch vụ',
-        }
-    },
-},{
-    tabBarPosition: 'top',
-    animationEnabled: true,
-    tabBarOptions: {
-        upperCaseLabel: false,
-        activeTintColor: 'white',
-        inactiveTintColor: 'black',
-        indicatorStyle: {
-            backgroundColor: 'white'
-        },
-        labelStyle: {
-            fontSize: 14,
-        },
-        style: {
-            backgroundColor: 'deepskyblue',
-        },
-    }
-});
