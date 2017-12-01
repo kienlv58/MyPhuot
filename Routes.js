@@ -16,21 +16,58 @@ import PhuotNews from "./src/components/PhuotNews";
 import Post from "./src/components/ScreenTabDetails/Post";
 import ServiceList from "./src/components/ScreenTabDetails/ServiceList";
 
-export const TabBar = TabNavigator({
+export const PostStack = StackNavigator({
     PostsDetails:{
         screen: PostsDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+},{
+    headerMode: 'none'
+})
+export const ScheduleStack = StackNavigator({
+    ScheduleDetails:{
+        screen: ScheduleDetails,
+    },
+    Post: {
+        screen: Post,
+        navigationOptions:{
+            title: 'Post'
+        }
+    }
+},{
+    headerMode: 'none'
+})
+export const ServiceStack = StackNavigator({
+    PostsDetails:{
+        screen: ServiceDetails,
+    },
+    ServiceList: {
+        screen: ServiceList,
+    }
+},{
+    headerMode: 'none'
+})
+
+export const TabBar = TabNavigator({
+    PostsDetails:{
+        screen: PostStack,
         navigationOptions: {
             tabBarLabel: 'Bài viết',
         }
     },
     ScheduleDetails:{
-        screen: ScheduleDetails,
+        screen: ScheduleStack,
         navigationOptions: {
             tabBarLabel: 'Lịch trình',
         }
     },
     ServiceDetails:{
-        screen: ServiceDetails,
+        screen: ServiceStack,
         navigationOptions: {
             tabBarLabel: 'Dịch vụ',
         }
@@ -54,36 +91,6 @@ export const TabBar = TabNavigator({
     }
 });
 
-export const PostStack = StackNavigator({
-    PostsDetails:{
-        screen: PostsDetails,
-    },
-    Post: {
-        screen: Post,
-        navigationOptions:{
-            title: 'Post'
-        }
-    }
-})
-export const ScheduleStack = StackNavigator({
-    ScheduleDetails:{
-        screen: ScheduleDetails,
-    },
-    Post: {
-        screen: Post,
-        navigationOptions:{
-            title: 'Post'
-        }
-    }
-})
-export const ServiceStack = StackNavigator({
-    PostsDetails:{
-        screen: ServiceDetails,
-    },
-    ServiceList: {
-        screen: ServiceList,
-    }
-})
 
 export const RouteStack = StackNavigator({
     Home: {
