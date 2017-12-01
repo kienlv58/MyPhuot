@@ -12,6 +12,7 @@ import {default as IconMat} from 'react-native-vector-icons/Ionicons';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 import {connect} from 'react-redux';
 import {logout} from '../actions/actionUser'
+
 class ItemMenu extends Component {
 
     constructor(props) {
@@ -21,20 +22,23 @@ class ItemMenu extends Component {
     onPress = () => {
         switch (this.props.title) {
             case 'Đăng xuất':
-                if(this.props.isLogin)
+                if (this.props.isLogin)
                     this.props.Logout();
-
                 break;
             case 'Quản lý đội':
+
                 break;
             case 'lịch trình của tôi':
+
                 break;
             case 'Địa điểm yêu thích':
+                console.log("Địa điểm yêu thích");
                 break;
             case 'Tin tức phượt':
-                this.props.navigation.navigate('Details');
+
                 break;
             case 'Diễn đàn phượt':
+
                 break;
         }
     }
@@ -59,8 +63,8 @@ class ItemMenu extends Component {
     }
 
 
-
 }
+
 const mapStateToProps = (state) => {
     return {
         isLogin: state.reducerUser.isLogin
@@ -72,4 +76,4 @@ const bindActionsToDispatch = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps,bindActionsToDispatch)(ItemMenu);
+export default connect(mapStateToProps, bindActionsToDispatch)(ItemMenu);

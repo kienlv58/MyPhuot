@@ -4,20 +4,24 @@ import {
     DrawerNavigator,
     TabNavigator
 } from 'react-navigation';
-import Home from './src/components/Home'
-import TouristAttraction from './src/components/TouristAttraction'
-import Details from './src/components/Details'
+import Home from './src/components/Home';
+import TouristAttraction from './src/components/TouristAttraction';
+import Details from './src/components/Details';
 import SideBar from './src/components/SideBar';
-import PostsDetails from './src/components/ScreenTabDetails/PostsDetails'
-import ScheduleDetails from './src/components/ScreenTabDetails/ScheduleDetails'
-import ServiceDetails from './src/components/ScreenTabDetails/ServiceDetails'
+import PostsDetails from './src/components/ScreenTabDetails/PostsDetails';
+import ScheduleDetails from './src/components/ScreenTabDetails/ScheduleDetails';
+import ServiceDetails from './src/components/ScreenTabDetails/ServiceDetails';
 import {widthMenu} from "./src/utils/Dimen";
 import PhuotNews from "./src/components/PhuotNews";
+
 import MyTeam from "./src/components/MyTeam";
 import {GroupStack} from "./src/components/RouterGroup";
 import TeamManagement from "./src/components/TeamManagement";
 import AddGroup from "./src/components/AddGroup";
 import ReadNews from "./src/components/ReadNews";
+
+import Post from "./src/components/ScreenTabDetails/Post";
+
 
 export const RouteStack = StackNavigator({
     Home: {
@@ -40,6 +44,7 @@ export const RouteStack = StackNavigator({
             title: 'Details'
         }
     },
+
     MyTeam: {
         screen: MyTeam,
         navigationOptions:{
@@ -69,10 +74,21 @@ export const RouteStack = StackNavigator({
 
     ReadNews:{
         screen: ReadNews,
-    }
-
+    },
 
 })
+
+// export const PostStack = StackNavigator({
+//     PostsDetails:{
+//         screen: PostsDetails,
+//     },
+//     Post: {
+//         screen: Post,
+//         navigationOptions:{
+//             title: 'Post'
+//         }
+//     }
+// })
 
 export default SlideMenu = DrawerNavigator(
     {

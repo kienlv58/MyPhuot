@@ -21,6 +21,7 @@ export default class Details extends Component<{}>{
     }
 
     render(){
+        console.log("render component name")
         return(
             <View style={details.container}>
                 <ScrollView contentContainerStyle={{borderWidth: 0, flex: 1}}>
@@ -40,7 +41,7 @@ export default class Details extends Component<{}>{
                             imageSize={35}
                             startingValue={3.5}
                             onFinishRating={this.ratingCompleted}
-                            style={{ marginTop:5 }}
+                            style={{ marginTop:5, marginBottom: 5 }}
                         />
                     </View>
                     <TabBar/>
@@ -57,6 +58,7 @@ const details = StyleSheet.create({
         backgroundColor:'white'
     },
     title:{
+        marginTop:10,
         backgroundColor:'deepskyblue',
         padding:5,
     },

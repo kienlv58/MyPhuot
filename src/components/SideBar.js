@@ -26,7 +26,6 @@ class SideBar extends Component {
             isLoaded: false
         }
 
-
     }
 
     getUriCover = (userId, token) => {
@@ -150,21 +149,13 @@ class SideBar extends Component {
 
                     <View style={{flex: 4, backgroundColor: Colors.background_color}}>
 
-                        <ItemMenu action={() => {
-                            this.props.navigation.navigate('TouristAttraction')
-                        }}
-                                  title="Đội của tôi"
+                        <ItemMenu title="Đội của tôi"
                                   nameIcon="ios-contacts"/>
-                        <ItemMenu
-                            title="Quản lý đội"
-                            nameIcon="ios-people"/>
+                        <ItemMenu title="Quản lý đội"
+                                  nameIcon="ios-people"/>
                         <ItemMenu title="lịch trình của tôi" nameIcon="ios-time"/>
                         <ItemMenu title="Địa điểm yêu thích" nameIcon="ios-heart"/>
-
-                        <ItemMenu action={() => {
-                            this.props.navigation.navigate('PhuotNews')
-                        }}
-                                  title="Tin tức phượt"
+                        <ItemMenu title="Tin tức phượt"
                                   nameIcon="ios-paper"/>
                         <ItemMenu title="Diễn đàn phượt" nameIcon="ios-chatbubbles"/>
                         <ItemMenu title="Đăng xuất" nameIcon="md-log-out" data={this.state}/>
